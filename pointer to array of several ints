@@ -1,0 +1,24 @@
+#include "stdafx.h"
+
+
+int main()
+{
+	int c[3][4] = { {1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12} };
+	int (*p)[3][4] = &c;
+	int **dp = c;   // error
+	int(*cp)[4] = c;   // cp (or c) is a pointer to an array of 4 ints;  so cp++ will pass 4*4 bytes;
+	                   // and p++ will pass 12*4 bytes.
+	cp++;   // move from 0x00f9f9ac to 0x00f9f9bc
+	p++;    // move from 0x00f9f9ac to 0x00f9f9dc
+	
+	int *q = *c;   // q is a pointer to int, *q -> c[0][0]
+
+	int a[4] = { 1, 2, 3, 4 };
+	int(*b)[4] = &a;     //  a is a pointer to int, but &a is a pointer to an array of 4 ints;
+	int *e = a;
+	int *d = &a[0];    // d is a pointer to int;
+	b++;   // the pointer b will advance 4*4 bytes;
+	d++;   // d will only advance 4 bytes;
+	
+    return 0;
+}
