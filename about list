@@ -1,0 +1,57 @@
+
+// ConsoleApplication11.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int a) : val(a) {};
+};
+class Solution {
+public:
+	ListNode * removeVal(ListNode *head, int ival) {          //删除 list 中的 ival 值， 例如从 6－6－1－2－6－3－4－5－6到 1－2－3－4－5；
+		if (head == nullptr) {
+			return nullptr;
+		}
+		while (head->val == ival) {
+			head = head->next;
+		}
+		ListNode *ahead = head->next;
+		ListNode *follow = head;
+		while (ahead != nullptr) {
+			if (ahead->val == ival) {
+				follow->next = ahead->next;
+				ahead = follow->next;
+			}
+			else {
+				ahead = ahead->next;
+				follow = follow->next;
+			}
+		}
+		return head;
+	}
+
+	ListNode * createList(int arr[], int n) {             //从数组创建 list
+		int i;
+		ListNode *dummy = new ListNode(-1);
+		ListNode *head;
+		for (i = 0, head = dummy; i != n; ++i) {
+			head->next = new ListNode(arr[i]);
+			head = head->next;
+		}
+		head->next = nullptr;              // This sentence is very important, don't forget !!!!.
+		return dummy->next;
+	}
+};
+
+int main()
+{
+	int arr[9] = { 6, 6, 1,2 ,6, 3,4,5,6 };
+	Solution sTest;
+	ListNode *ltest = sTest.createList(arr, 9);
+	ListNode *lremain = sTest.removeVal(ltest, 6);
+    return 0;
+}
+
