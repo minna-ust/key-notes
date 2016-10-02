@@ -12,7 +12,7 @@ struct ListNode {
 class Solution {
 public:
 	ListNode * removeVal(ListNode *head, int ival) {          //删除 list 中的 ival 值， 例如从 6－6－1－2－6－3－4－5－6到 1－2－3－4－5；
-		if (head == nullptr) {
+		if (head == nullptr) {                                 (有漏洞，比如 1-6-6-2,会漏掉最开始的 1)
 			return nullptr;
 		}
 		while (head->val == ival) {
